@@ -50,8 +50,8 @@ angular.forEach(hmGestures, function(name){
             opts = $parse(attr['hmOptions'])(scope, {}),
             hammer;
 
-        if (typeof Hammer === 'undefined' || !$window.addEventListener) {
-          // fallback to mouse events where appropriate
+        if (typeof Hammer === 'undefined' || (!Hammer.event.bindDom && !$window.addEventListener)) {
+          // fallback to mouse events where appropriate. if hammer.jquery plugin has been loaded, carry on
           if (directiveName === 'hmTap') {
             element.bind('click', fn);
           }
